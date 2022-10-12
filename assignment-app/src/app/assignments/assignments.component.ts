@@ -12,6 +12,7 @@ export class AssignmentsComponent implements OnInit {
   ajoutActive = false;
   nomDevoir:string = "";
   
+  assignementSelectionne: Assignment = new Assignment;
   assignments:Assignment[] = [
     {
       nom: "Devoir Angular à rendre",
@@ -20,7 +21,9 @@ export class AssignmentsComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor() {
+    
+   }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -31,10 +34,13 @@ export class AssignmentsComponent implements OnInit {
   onSubmit() {
     const newAssignment = new Assignment();
     newAssignment.nom = this.nomDevoir;
-    newAssignment.dateDeRendu = this.dateDeRendu;
+    // newAssignment.dateDeRendu = this.dateDeRendu;
     newAssignment.rendu = false;
     
     this.assignments.push(newAssignment);
   }
 
+  assignmentClique(assignment:Assignment) {
+    this.assignementSelectionne = assignment;
+  }
 }
