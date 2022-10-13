@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Assignment } from '../assignment.model';
+import { AssignmentsService } from '../../shared/assignments.service';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -7,15 +8,24 @@ import { Assignment } from '../assignment.model';
   styleUrls: ['./assignment-detail.component.css']
 })
 export class AssignmentDetailComponent implements OnInit {
-  @Input()
-  assignementTransmis: Assignment = new Assignment;
+  @Input() assignementTransmis: Assignment = new Assignment;
 
-  constructor() { }
+  constructor(private assignmentsService: AssignmentsService) { }
 
   ngOnInit(): void {
   }
 
   onAssignmentRendu() {
     this.assignementTransmis.rendu = true;
+
+    this.assignmentsService.updateAssignment(this.assignementTransmis)
+      .subscribe(message => console.log(message));
+  }
+
+  onDelete() {
+    this.assignmentsService.deleteAssignment(this.assignementTransmis)
+    .subscribe((message) => console.log(message));
+
+    this.assignementTransmis = null;
   }
 }
